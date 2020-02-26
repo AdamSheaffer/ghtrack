@@ -27,8 +27,10 @@ const students = fs
   .readFileSync(`${__dirname}/cohorts/${cohort}.txt`)
   .toString()
   .split("\n")
-  .filter(t => !!t)
-  .map(h => h.replace("https://github.com/", ""));
+  .map(h => {
+    return h.replace("https://github.com/", "").trim();
+  })
+  .filter(t => !!t);
 
 const getRecentStudentGithubActivity = handle => {
   const url = `https://api.github.com/users/${handle}/events?page=1&per_page=15`;
